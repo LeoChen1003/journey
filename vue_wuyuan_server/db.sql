@@ -29,3 +29,11 @@ create table spotInfo(
     img VARCHAR(50),
     details VARCHAR(128)
 );
+
+#酒店信息表
+create table hotelInfo(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    hName VARCHAR(20),
+    price VARCHAR(20),
+    hAddress VARCHAR(50)
+)

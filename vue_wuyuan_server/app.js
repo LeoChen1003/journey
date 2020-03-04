@@ -121,3 +121,26 @@ server.get('/userInfo',(req,res)=>{
         }
     })
 })
+
+//获取酒店信息
+server.get('/hotelInfo',(req,res) => {
+    var city = req.query.city;
+    var name = req.query.hotelName;
+    if(city === '' && name === ''){
+        var sql = "SELECT * FROM hotelinfo";
+    }else if(city !== '' && name === ''){
+        var sql = "SELECT * FROM hotelinfo WHERE city = ?";
+    }else if(name !== '' && city === ''){
+        var sql = "SELECT * FROM hotelinfo WHERE hName = ?";
+    }else{
+        var sql = "SELECT * FROM hotelinfo WHERE city = ? AND hName = ?";
+    }
+    pool.query(sql,[city,name],(err,result)=>{
+        if(err)  throw err;
+        if(result.length===0){
+            res.send({code:-1,message:'查找失败'})
+        }else {
+            res.send(result)
+        }
+    })
+})
